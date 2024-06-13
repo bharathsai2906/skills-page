@@ -1,0 +1,98 @@
+HTML...
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous" />
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/ac42c3b1f7.js" crossorigin="anonymous"></script>
+    <title>Checkbox With Label</title>
+    <link rel="stylesheet" href="skills.css" />
+  </head>
+  <body>
+    <div class="p-5" id="skillContainer">
+      <h1 class="heading">Mark Your Skills</h1>
+      <ul class="skill-list-container" id="skillListContainer"></ul>
+    </div
+    <script src="skills.js"></script>
+  </body>
+  </html>
+
+  .CSS...
+
+  
+.heading{
+    font-family: Roboto;
+    font-size: 24px;
+}
+
+.selected{
+    color: rgb(45, 226, 54);
+}
+.skill-list-container{
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+.checkbox-label{
+    font-family: Roboto;
+    font-size: 16px;
+    margin-left: 10px;
+}
+
+.JS..
+
+let skillList = [
+    {
+      skillName: "HTML",
+      uniqueNo: 1,
+    },
+    {
+      skillName: "CSS",
+      uniqueNo: 2,
+    },
+    {
+      skillName: "Javascript",
+      uniqueNo: 3,
+    },
+];
+
+let skillListContainerEl = document.getElementById("skillListContainer");
+
+function onMarkSkill(labelId){
+  let labelEl = document.getElementById(labelId);
+  labelEl.classList.toggle("selected");
+}
+
+function createAndAppendSkill(skill){
+
+  let checkboxId = "checkbox" + skill.uniqueNo;
+  let labelId = "label" + skill.uniqueNo;
+
+
+  let skillEl = document.createElement("li");
+  skillEl.classList.add("p-1");
+  skillListContainerEl.appendChild(skillEl);
+
+  let checkBoxEl = document.createElement("input");
+  checkBoxEl.id = checkboxId;
+  checkBoxEl.type = "checkbox";
+  
+  checkBoxEl.onclick = function(){
+    onMarkSkill(labelId);
+  };
+  skillEl.appendChild(checkBoxEl);
+
+  let labelEl =  document.createElement("label");
+  labelEl.classList.add("checkbox-label");
+  labelEl.id = labelId;
+  labelEl.setAttribute("for", checkboxId);
+  labelEl.textContent = skill.skillName;
+  skillEl.appendChild(labelEl);
+}
+
+for (let skill of skillList) {
+  createAndAppendSkill(skill);
+}
